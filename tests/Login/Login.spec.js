@@ -1,5 +1,5 @@
 import {test,expect} from '@playwright/test';
-import { LoginPage } from '../Pages/LoginPage';
+import { LoginPage } from '../../Pages/LoginPage';
 //locator 
 const errorMessage = "h3[data-test='error']";
 
