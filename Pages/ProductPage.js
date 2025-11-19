@@ -27,4 +27,24 @@ class ProductPage{
             }
         }
     };
+
+    async removeProductOnProductPage(productName){
+        const names = Array.isArray(productName) ? productName : [productName];
+        for(const name of names){
+            const listOfProducts = await this.page.$$(this.listProduct);
+            let found = false;
+            for(const product of listOfProducts){
+                if(await product.textContent() === name){
+                    await product.click();
+                    await this.page.locator(this.removeButton).click();
+                    await this.page.locator(this.backToProductsButton).click();
+                    found = true;
+                    break;
+                }
+            }
+            if(!found){
+                console.warn("Product " + productName + " not found");
+            }
+        }
+    };
 };

@@ -1,6 +1,7 @@
 import {test,expect} from '@playwright/test';
 import { LoginPage } from '../../Pages/LoginPage';
 import { HomePage } from '../../Pages/HomePage';
+import { ProductPage } from '../../Pages/ProductPage';
 
 let page;
 test.beforeEach(async({browser})=>{
@@ -10,11 +11,22 @@ test.beforeEach(async({browser})=>{
     await login.login('standard_user', 'secret_sauce');
 });
 
-test('Remove Product Success (Add Product-P-3)', async()=>{
+test('Remove Product Success (Remove Product-P-1)', async()=>{
     const homePage = new HomePage(page);
     const productsToAdd = ['Sauce Labs Bike Light', 'Sauce Labs Bolt T-Shirt'];
     await homePage.addProductButton(productsToAdd);
     await homePage.removeProductButton(productsToAdd);
+    for(const product of productsToAdd){
+        expect(await homePage.goToCartPage(product)).toBeFalsy();
+    }
+});
+
+test('Remove Product Success (Remove Product-P-2)', async()=>{
+    const homePage = new HomePage(page); 
+    const productPage = new ProductPage(page);
+    const productsToAdd = ['Sauce Labs Bike Light', 'Sauce Labs Bolt T-Shirt'];
+    await productPage.goToProductPage(productsToAdd);
+    await productPage.removeProductOnProductPage(productsToAdd);
     for(const product of productsToAdd){
         expect(await homePage.goToCartPage(product)).toBeFalsy();
     }
