@@ -14,6 +14,24 @@ class Cart{
         await this.page.locator(this.cartLink).click();
     }
 
+    async removeProductInCart(productName){
+        const names = Array.isArray(productName) ? productName : [productName];
+        for(const name of names){
+            const listOfProducts = await this.page.$$(this.listProductInCart);
+            let found = false;
+            for(const product of listOfProducts){
+                if(await product.textContent() === name){
+                    await this.page.locator(this.removeProductButton(name)).click();
+                    found = true;
+                    break;
+                }
+            }
+            if(!found){
+                console.warn("Product " + productName + " not found");
+            }
+        }
+    };
+
 
 
 };
