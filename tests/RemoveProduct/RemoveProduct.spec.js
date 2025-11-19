@@ -10,21 +10,15 @@ test.beforeEach(async({browser})=>{
     await login.login('standard_user', 'secret_sauce');
 });
 
-test('Add Product-P-1', async()=> {
-    const homePage = new HomePage(page);
-    await homePage.addProductOnHomePage('Sauce Labs Backpack');
-    expect(await homePage.goToCartPage('Sauce Labs Backpack')).toBeTruthy();
-});
-
-test('Add Product-P-2', async()=>{
+test('Remove Product Success (Add Product-P-3)', async()=>{
     const homePage = new HomePage(page);
     const productsToAdd = ['Sauce Labs Bike Light', 'Sauce Labs Bolt T-Shirt'];
-    await homePage.addProductOnHomePage(productsToAdd);
+    await homePage.addProductButton(productsToAdd);
+    await homePage.removeProductButton(productsToAdd);
     for(const product of productsToAdd){
-        expect(await homePage.goToCartPage(product)).toBeTruthy();
+        expect(await homePage.goToCartPage(product)).toBeFalsy();
     }
 });
-
 
 test.afterEach(async()=>{
     await page.locator("//button[@id='react-burger-menu-btn']").click();
