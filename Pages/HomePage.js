@@ -50,23 +50,7 @@ class HomePage{
         }
     };
 
-    async goToCartPage(productName){
-        await this.page.locator(this.cartLink).click();
-        await this.page.waitForTimeout(3000);
-        const names = Array.isArray(productName) ? productName : [productName];
-        let found = false;
-        for(const name of names){
-            const listOfProductsInCart = await this.page.$$(this.listProductInCart);
-            for(const product of listOfProductsInCart){
-                if(await product.textContent() === name){
-                    found = true;
-                    return true;
-                }
-            }
-            if(!found){
-                console.warn("Product " + productName + " not found");
-                return false;
-            }   
-        }
+    async goToCartPage(){
+        await this.page.click(this.cartLink);
     }
 }

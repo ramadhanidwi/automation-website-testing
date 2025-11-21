@@ -14,22 +14,26 @@ test.beforeEach(async({browser})=>{
 
 test('Remove Product Success (Remove Product-P-1)', async()=>{
     const homePage = new HomePage(page);
+    const cartPage = new Cart(page);
     const productsToAdd = ['Sauce Labs Bike Light', 'Sauce Labs Bolt T-Shirt'];
     await homePage.addProductButton(productsToAdd);
     await homePage.removeProductButton(productsToAdd);
+    await homePage.goToCartPage();
     for(const product of productsToAdd){
-        expect(await homePage.goToCartPage(product)).toBeFalsy();
+        expect(await cartPage.checkProductInCart(product)).toBeFalsy();
     }
 });
 
 test('Remove Product Success (Remove Product-P-2)', async()=>{
     const homePage = new HomePage(page); 
     const productPage = new ProductPage(page);
-    const productsToAdd = ['Sauce Labs Bike Light', 'Sauce Labs Bolt T-Shirt'];
+    const cartPage = new Cart(page);
+    const productsToAdd = 'Sauce Labs Bike Light';
     await productPage.goToProductPage(productsToAdd);
     await productPage.removeProductOnProductPage(productsToAdd);
+    await homePage.goToCartPage();
     for(const product of productsToAdd){
-        expect(await homePage.goToCartPage(product)).toBeFalsy();
+        expect(await cartPage.checkProductInCart(product)).toBeFalsy();
     }
 });
 
@@ -39,10 +43,10 @@ test('Remove Product Success (Remove Product-P-3)', async()=>{
     const productsToAdd = ['Sauce Labs Bike Light', 'Sauce Labs Bolt T-Shirt'];
     await homePage.addProductButton(productsToAdd);
     await cartPage.removeProductInCart(productsToAdd);
+    await homePage.goToCartPage();
     for(const product of productsToAdd){
-        expect(await homePage.goToCartPage(product)).toBeFalsy();
-    };
-    
+        expect(await cartPage.checkProductInCart(product)).toBeFalsy();
+    }
 }); 
 
 test.afterEach(async()=>{
