@@ -9,6 +9,10 @@ class Cart{
         this.removeProductButton = (productName) => `//div[contains(@class,'inventory_item')]
                                                 [.//div[contains(@class,'inventory_item_name') and normalize-space(.)='${productName}']]
                                                 //button[normalize-space(.)='Remove']`;
+        this.priceLocator = (productName) => `//div[contains(@class,'cart_item')]
+                                                [.//div[contains(@class,'inventory_item_name') and normalize-space(.)='${productName}']]
+                                                //div[@class='inventory_item_price'][1]`
+        this.totalPriceLabel = "//div[@class='summary_total_label'][1]";
         this.cartLink = "//a[@class='shopping_cart_link']";
         this.firstNameInput = "//input[@id='first-name']";
         this.lastNameInput = "//input[@id='last-name']";
@@ -63,4 +67,65 @@ class Cart{
         }
     }
 
+    async goToCheckoutPage(){
+        await this.page.locator(this.checkoutButton).click();
+        await this.page.waitForTimeout(3000);
+    }
+
+    async checkOutProduct(firstName, lastName, postalCode){
+        await this.page.locator(this.firstNameInput).fill(firstName);
+        await this.page.locator(this.lastNameInput).fill(lastName);
+        await this.page.locator(this.postalCodeInput).fill(postalCode);
+    }
+
+    async goToOverviewPage(){
+        await this.page.locator(this.continueButton).click();
+        await this.page.waitForTimeout(3000);
+    }
+
+    async checkProductsInOverview(productName){
+        const names = Array.isArray(productName) ? productName : [productName];
+        let found = false;
+        for(const name of names){
+            const listOfProductsInCart = await this.page.$$(this.listProductInCart);
+            for(const product of listOfProductsInCart){
+                if(await product.textContent() === name){
+                    found = true;
+                    return true;
+                }
+            }
+            if(!found){
+                console.warn("Product " + productName + " not found");
+                return false;
+            }   
+        }  
+    }
+
+    async checkTotalPrice(productName){
+        const names = Array.isArray(productName) ? productName : [productName];
+        let found = false;
+        let taxPrice = 3.20; //biaya pajak tetap
+        let totalPrice = 0
+        for(const name of names){
+            const listOfProductsInCart = await this.page.$$(this.listProductInCart);
+            const priceText = await this.page.locator(this.priceLocator(name)).innerText();
+            const price = parseFloat(priceText.replace(/[^\d.]/g, '')); // buang simbol non-digit/non-titik, lalu ubah ke number
+            for(const product of listOfProductsInCart){
+                if(await product.textContent() === name){
+                    totalPrice += price;
+                    found = true;
+                    return true;
+                }
+            }
+            if(!found){
+                console.warn("Product " + productName + " not found");
+                return false;
+            }   
+        }
+        return totalPrice += taxPrice;
+    };
+
+    async completeOrder(){
+        await this.page.locator(this.finishButton).click();
+    };
 };
