@@ -5,6 +5,10 @@ import { LoginPage } from '../../Pages/LoginPage';
 
 //locator
 const errorMessage = "h3[data-test='error']";
+const titleLocator = "//span[@class='title']";
+const priceLocator = (productName) => `//div[contains(@class,'cart_item')]
+                                                [.//div[contains(@class,'inventory_item_name') and normalize-space(.)='${productName}']]
+                                                //div[@class='inventory_item_price'][1]`
 
 let page;
 test.beforeEach(async({browser})=>{
