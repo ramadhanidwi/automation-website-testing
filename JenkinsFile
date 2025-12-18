@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Login Feature') {
             steps {
-                npx playwright test tests/Login/Login.spec.js --project=chromium --headed
+                sh "npx playwright test tests/Login/Login.spec.js --project=chromium --headed"
             }
         }
         stage('Add Product Feature') {
