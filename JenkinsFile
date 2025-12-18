@@ -2,24 +2,31 @@ pipeline {
     agent any
 
     stages {
+        stage('Install Dependencies'){
+            steps{
+                bat 'node --version'
+                bat 'npm ci'
+                bat 'npx playwright install --with-deps'
+            }
+        }
         stage('Login Feature') {
             steps {
-                sh "npx playwright test tests/Login/Login.spec.js --project=chromium --headed"
+                bat 'npx playwright test tests/Login/Login.spec.js --project=chromium --headed'
             }
         }
         stage('Add Product Feature') {
             steps {
-                echo 'Add Product Feature'
+                bat 'echo Add Product Feature'
             }
         }
         stage('Remove Product Feature') {
             steps {
-                echo 'Remove Product Feature'
+                bat 'echo Remove Product Feature'
             }
         }
         stage('Checkout Product Feature') {
             steps {
-                echo 'Checkout Product Feature'
+                bat 'echo Checkout Product Feature'
             }
         }
     }
