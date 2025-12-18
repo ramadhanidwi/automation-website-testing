@@ -2,7 +2,7 @@ exports.Cart =
 class Cart{
     constructor(page){
         this.page = page;
-        this.backToShopingButton = "//button[@id='continue-shopping']";
+        this.backToShoppingButton = "//button[@id='continue-shopping']";
         this.checkoutButton = "//button[@id='checkout']";
         this.titleLocator = "//span[@class='title']";
         this.listProductInCart = "(//div[@class='inventory_item_name'])";
@@ -128,4 +128,8 @@ class Cart{
     async completeOrder(){
         await this.page.locator(this.finishButton).click();
     };
+
+    async continueShopping(){
+        await this.page.locator(this.backToShoppingButton).click();
+    }
 };
