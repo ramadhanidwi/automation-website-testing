@@ -6,7 +6,7 @@ class Cart{
         this.checkoutButton = "//button[@id='checkout']";
         this.titleLocator = "//span[@class='title']";
         this.listProductInCart = "(//div[@class='inventory_item_name'])";
-        this.removeProductButton = (productName) => `//div[contains(@class,'inventory_item')]
+        this.removeProductButton = (productName) => `//div[contains(@class,'cart_item')]
                                                 [.//div[contains(@class,'inventory_item_name') and normalize-space(.)='${productName}']]
                                                 //button[normalize-space(.)='Remove']`;
         this.priceLocator = (productName) => `//div[contains(@class,'cart_item')]
