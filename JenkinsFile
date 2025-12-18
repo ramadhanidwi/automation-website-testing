@@ -11,22 +11,26 @@ pipeline {
         }
         stage('Login Feature') {
             steps {
+                bat 'echo Login Feature'
                 bat 'npx playwright test tests/Login/Login.spec.js --project=chromium --headed'
             }
         }
         stage('Add Product Feature') {
             steps {
                 bat 'echo Add Product Feature'
+                bat 'npx playwright test tests/Add-Product/AddProduct.spec.js --project=chromium --headed'
             }
         }
         stage('Remove Product Feature') {
             steps {
                 bat 'echo Remove Product Feature'
+                bat 'npx playwright test tests/Remove-Product/RemoveProduct.spec.js --project=chromium --headed'
             }
         }
         stage('Checkout Product Feature') {
             steps {
                 bat 'echo Checkout Product Feature'
+                bat 'npx playwright test tests/Checkout-Product/CheckoutProduct.spec.js --project=chromium --headed'
             }
         }
     }
