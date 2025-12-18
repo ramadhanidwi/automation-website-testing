@@ -1,0 +1,26 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Login Feature') {
+            steps {
+                npx playwright test tests/Login/Login.spec.js --project=chromium --headed
+            }
+        }
+        stage('Add Product Feature') {
+            steps {
+                echo 'Add Product Feature'
+            }
+        }
+        stage('Remove Product Feature') {
+            steps {
+                echo 'Remove Product Feature'
+            }
+        }
+        stage('Checkout Product Feature') {
+            steps {
+                echo 'Checkout Product Feature'
+            }
+        }
+    }
+}
