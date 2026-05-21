@@ -147,7 +147,7 @@ test('Checkout Product Failed (Checkout Product-N-6)', async()=>{
 test('Checkout Product Abnormal (Checkout Product-A-1)', async()=>{
     const homePage = new HomePage(page);
     const cartPage = new Cart(page);
-    const productsToAdd = ['Sauce Labs Backpack', 'Sauce Labs Fleece Jacket'];
+    const productsToAdd = [''];
     await homePage.addProductOnHomePage(productsToAdd);
     await homePage.goToCartPage();
     for(const product of productsToAdd){
