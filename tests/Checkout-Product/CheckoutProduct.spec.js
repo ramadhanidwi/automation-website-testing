@@ -53,6 +53,7 @@ test('Checkout Product Failed (Checkout Product-N-1)', async()=>{
     }
     await cartPage.goToCheckoutPage();
     await cartPage.checkOutProduct('John', '','');
+    await cartPage.goToOverviewPage();
     await waitForTimeout(3000);
     expect(await page.locator(errorMessage)).toBeVisible();
     expect(await page.locator(errorMessage).textContent()).toBe('Error: Last Name is required)');
@@ -69,6 +70,7 @@ test('Checkout Product Failed (Checkout Product-N-2)', async()=>{
     }
     await cartPage.goToCheckoutPage();
     await cartPage.checkOutProduct('', 'Doe','');
+    await cartPage.goToOverviewPage();
     await waitForTimeout(3000);
     expect(await page.locator(errorMessage)).toBeVisible();
     expect(await page.locator(errorMessage).textContent()).toBe('Error: First Name is required)');
@@ -85,6 +87,7 @@ test('Checkout Product Failed (Checkout Product-N-3)', async()=>{
     }
     await cartPage.goToCheckoutPage();
     await cartPage.checkOutProduct('', '','12345');
+    await cartPage.goToOverviewPage();
     await waitForTimeout(3000);
     expect(await page.locator(errorMessage)).toBeVisible();
     expect(await page.locator(errorMessage).textContent()).toBe('Error: First Name is required)');
@@ -101,6 +104,7 @@ test('Checkout Product Failed (Checkout Product-N-4)', async()=>{
     }
     await cartPage.goToCheckoutPage();
     await cartPage.checkOutProduct('John', 'Doe','');
+    await cartPage.goToOverviewPage();
     await waitForTimeout(3000);
     expect(await page.locator(errorMessage)).toBeVisible();
     expect(await page.locator(errorMessage).textContent()).toBe('Error: Postal Code is required)');
@@ -117,6 +121,7 @@ test('Checkout Product Failed (Checkout Product-N-5)', async()=>{
     }
     await cartPage.goToCheckoutPage();
     await cartPage.checkOutProduct('John', '','12345');
+    await cartPage.goToOverviewPage();
     await waitForTimeout(3000);
     expect(await page.locator(errorMessage)).toBeVisible();
     expect(await page.locator(errorMessage).textContent()).toBe('Error: Last Name is required)');
@@ -133,6 +138,7 @@ test('Checkout Product Failed (Checkout Product-N-6)', async()=>{
     }
     await cartPage.goToCheckoutPage();
     await cartPage.checkOutProduct('', 'Doe','12345');
+    await cartPage.goToOverviewPage();
     await waitForTimeout(3000);
     expect(await page.locator(errorMessage)).toBeVisible();
     expect(await page.locator(errorMessage).textContent()).toBe('Error: First Name is required)');
