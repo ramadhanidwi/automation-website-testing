@@ -43,7 +43,6 @@ test('Add Product Success (Add Product-P-3)', async()=>{
     }
 });
 
-
 test.afterEach(async()=>{
     await page.locator("//button[@id='react-burger-menu-btn']").click();
     await page.locator("//a[@id='logout_sidebar_link']").click();

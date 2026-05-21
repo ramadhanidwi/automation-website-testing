@@ -7,11 +7,9 @@ class HomePage{
                                                 [.//div[contains(@class,'inventory_item_name') and normalize-space(.)='${productName}']]
                                                 //button[normalize-space(.)='Add to cart']`;
         this.listProduct = "(//div[@class='inventory_item_name '])";
-        this.buttonInProductPage = "//button[@id='add-to-cart']";
         this.removeProductButton = (productName) => `//div[contains(@class,'inventory_item')]
                                                 [.//div[contains(@class,'inventory_item_name') and normalize-space(.)='${productName}']]
                                                 //button[normalize-space(.)='Remove']`;
-        this.listProductInCart = "(//div[@class='inventory_item_name'])";
     }
 
     async addProductOnHomePage(productName){

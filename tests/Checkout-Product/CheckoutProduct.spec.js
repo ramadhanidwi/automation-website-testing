@@ -53,6 +53,7 @@ test('Checkout Product Failed (Checkout Product-N-1)', async()=>{
     }
     await cartPage.goToCheckoutPage();
     await cartPage.checkOutProduct('John', '','');
+    await waitForTimeout(3000);
     expect(await page.locator(errorMessage)).toBeVisible();
     expect(await page.locator(errorMessage).textContent()).toBe('Error: Last Name is required)');
 });
@@ -68,6 +69,7 @@ test('Checkout Product Failed (Checkout Product-N-2)', async()=>{
     }
     await cartPage.goToCheckoutPage();
     await cartPage.checkOutProduct('', 'Doe','');
+    await waitForTimeout(3000);
     expect(await page.locator(errorMessage)).toBeVisible();
     expect(await page.locator(errorMessage).textContent()).toBe('Error: First Name is required)');
 });
@@ -83,6 +85,7 @@ test('Checkout Product Failed (Checkout Product-N-3)', async()=>{
     }
     await cartPage.goToCheckoutPage();
     await cartPage.checkOutProduct('', '','12345');
+    await waitForTimeout(3000);
     expect(await page.locator(errorMessage)).toBeVisible();
     expect(await page.locator(errorMessage).textContent()).toBe('Error: First Name is required)');
 });
@@ -98,6 +101,7 @@ test('Checkout Product Failed (Checkout Product-N-4)', async()=>{
     }
     await cartPage.goToCheckoutPage();
     await cartPage.checkOutProduct('John', 'Doe','');
+    await waitForTimeout(3000);
     expect(await page.locator(errorMessage)).toBeVisible();
     expect(await page.locator(errorMessage).textContent()).toBe('Error: Postal Code is required)');
 });
@@ -113,6 +117,7 @@ test('Checkout Product Failed (Checkout Product-N-5)', async()=>{
     }
     await cartPage.goToCheckoutPage();
     await cartPage.checkOutProduct('John', '','12345');
+    await waitForTimeout(3000);
     expect(await page.locator(errorMessage)).toBeVisible();
     expect(await page.locator(errorMessage).textContent()).toBe('Error: Last Name is required)');
 });
@@ -127,9 +132,10 @@ test('Checkout Product Failed (Checkout Product-N-6)', async()=>{
         expect(await cartPage.checkProductInCart(product)).toBeTruthy();
     }
     await cartPage.goToCheckoutPage();
-    await cartPage.checkOutProduct('John', '','12345');
+    await cartPage.checkOutProduct('', 'Doe','12345');
+    await waitForTimeout(3000);
     expect(await page.locator(errorMessage)).toBeVisible();
-    expect(await page.locator(errorMessage).textContent()).toBe('Error: Last Name is required)');
+    expect(await page.locator(errorMessage).textContent()).toBe('Error: First Name is required)');
 });
 
 test('Checkout Product Abnormal (Checkout Product-A-1)', async()=>{
